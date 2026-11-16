@@ -1,0 +1,212 @@
+[
+  {
+    "faq_id": "faq_01",
+    "category": "Orders & Tracking",
+    "question": "How can I track my order status?",
+    "answer": "You can track your order by going to 'My Orders', selecting your order, and clicking 'Track Package' to see real-time courier updates.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_02",
+    "category": "Orders & Tracking",
+    "question": "What should I do if my order delivery is delayed?",
+    "answer": "If your order has passed the expected delivery date, please check the tracking link for transit updates or wait 24-48 hours. If there is still no update, our support team will escalate it with the courier partner.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_03",
+    "category": "Orders & Tracking",
+    "question": "Can I change my delivery address after placing an order?",
+    "answer": "Delivery address can only be changed before the order is dispatched. Go to 'My Orders' -> 'Edit Address'. Once dispatched, address changes cannot be processed.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_04",
+    "category": "Orders & Tracking",
+    "question": "How can I opt for express or same-day delivery?",
+    "answer": "Express delivery availability depends on your pin code and the seller. If eligible, you will see an 'Express / Next-Day Delivery' option at checkout for a nominal fee.",
+    "ttl_seconds": 604800
+  },
+  {
+    "faq_id": "faq_05",
+    "category": "Orders & Tracking",
+    "question": "Do you offer international shipping?",
+    "answer": "Currently, we only ship to serviceable pin codes within India. International deliveries and overseas billing addresses are not supported.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_06",
+    "category": "Cancellations",
+    "question": "How do I cancel my order before it ships?",
+    "answer": "To cancel, go to 'My Orders', select the order, and click 'Cancel Order'. If the order has not been dispatched yet, the cancellation will be approved immediately.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_07",
+    "category": "Cancellations",
+    "question": "Are there any cancellation fees or penalties?",
+    "answer": "No, cancellation is completely free of charge if requested before the order is dispatched.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_08",
+    "category": "Cancellations",
+    "question": "Can I cancel a single item from a multi-item order?",
+    "answer": "Yes, visit 'My Orders', select the specific product you wish to cancel, and click 'Cancel Item'. The remaining items will be shipped as scheduled.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_09",
+    "category": "Payments & Pricing",
+    "question": "Is Cash on Delivery (COD) available for all pin codes?",
+    "answer": "COD is available on eligible items and serviceable pin codes. You can check COD availability on the product page by entering your delivery pin code.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_10",
+    "category": "Payments & Pricing",
+    "question": "Money was deducted from my account, but my order is not placed. What should I do?",
+    "answer": "If payment was debited but no order was created, your bank will automatically reverse the transaction within 3 to 5 business days.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_11",
+    "category": "Payments & Pricing",
+    "question": "What are the available No-Cost EMI options?",
+    "answer": "No-Cost EMI is offered on major credit cards and select debit cards on orders above ₹3,000. Interest charged by the bank is provided as an upfront discount at checkout.",
+    "ttl_seconds": 604800
+  },
+  {
+    "faq_id": "faq_12",
+    "category": "Payments & Pricing",
+    "question": "Can I change the payment method after placing the order?",
+    "answer": "Payment methods cannot be altered once an order is placed. You will need to cancel the order before dispatch and place a fresh order with your preferred payment option.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_13",
+    "category": "Returns & Exchanges",
+    "question": "What is the standard return window and policy?",
+    "answer": "Most items have a 7-day return policy from the delivery date. Items must be unused, unwashed, with tags attached and original packaging intact.",
+    "ttl_seconds": 1209600
+  },
+  {
+    "faq_id": "faq_14",
+    "category": "Returns & Exchanges",
+    "question": "How do I schedule a return pickup?",
+    "answer": "Go to 'My Orders', choose the delivered item, tap 'Return / Exchange', select the reason, and pick a convenient date for doorstep pickup.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_15",
+    "category": "Returns & Exchanges",
+    "question": "What if the courier agent does not show up for return pickup?",
+    "answer": "Pickups are attempted up to 3 times. If the agent does not arrive on the scheduled day, your pickup will be automatically re-attempted the following business day.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_16",
+    "category": "Returns & Exchanges",
+    "question": "Can I exchange an item for a different size or color?",
+    "answer": "Yes, select 'Exchange' under 'My Orders' and choose your desired replacement size or color of the same product. Once pickup is completed, the replacement is dispatched.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_17",
+    "category": "Returns & Exchanges",
+    "question": "What should I do if I received a damaged or defective product?",
+    "answer": "Please report damaged or defective items within 48 hours of delivery under 'My Orders' with photos of the package and item to request an immediate replacement.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_18",
+    "category": "Returns & Exchanges",
+    "question": "An item or accessory is missing from my delivery box. How do I get it?",
+    "answer": "Report missing items within 24 hours under 'My Orders' -> 'Help'. We will verify package weight logs and dispatch the missing accessory or initiate a replacement.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_19",
+    "category": "Refunds",
+    "question": "How long does it take to receive a refund?",
+    "answer": "Refunds are processed within 24 hours after the returned item passes quality inspection. The amount reflects in your original payment method within 5 to 7 business days.",
+    "ttl_seconds": 1209600
+  },
+  {
+    "faq_id": "faq_20",
+    "category": "Refunds",
+    "question": "Why has my refund not arrived after 7 business days?",
+    "answer": "If 7 business days have passed since refund approval, please contact our support team with your refund ARN/reference number so we can check with our banking partners.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_21",
+    "category": "Refunds",
+    "question": "How will I receive the refund for a Cash on Delivery (COD) order?",
+    "answer": "For COD orders, you will be prompted to add your bank account details or UPI ID under 'Refund Settings'. Once added, the refund will be credited via IMPS within 2 business days.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_22",
+    "category": "Refunds",
+    "question": "Can my refund be credited to my store wallet instead of bank?",
+    "answer": "Yes, you can choose 'Store Credit / Wallet' during return creation for instant refund credit upon pickup without waiting for bank clearance.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_23",
+    "category": "Account & Invoices",
+    "question": "How can I download the GST tax invoice for my purchase?",
+    "answer": "To download the invoice, visit 'My Orders', select the order, and click 'Download Invoice'. The PDF will be downloaded immediately.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_24",
+    "category": "Account & Invoices",
+    "question": "How do I update my registered phone number or email address?",
+    "answer": "Go to 'Account Settings' -> 'Profile', edit your mobile number or email ID, and verify with an OTP sent to your existing and new credentials.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_25",
+    "category": "Account & Invoices",
+    "question": "How do I reset my account password if forgotten?",
+    "answer": "Click on 'Login', choose 'Forgot Password', enter your registered mobile number or email, and follow the password reset link or OTP sent to you.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_26",
+    "category": "Account & Invoices",
+    "question": "How do I permanently delete my shopping account?",
+    "answer": "To delete your account, navigate to 'Account Settings' -> 'Privacy & Security' -> 'Request Account Deletion'. All order histories and stored addresses will be permanently erased.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_27",
+    "category": "Warranty & Services",
+    "question": "How do I claim brand warranty for electronics purchased here?",
+    "answer": "You can claim warranty directly at any authorized brand service center using your tax invoice as proof of purchase.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_28",
+    "category": "Warranty & Services",
+    "question": "How do I know if the products sold are 100% genuine and original?",
+    "answer": "All products are sourced directly from verified authorized brand distributors and come with a 100% authenticity guarantee with official brand packaging.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_29",
+    "category": "Warranty & Services",
+    "question": "How do I schedule installation or product demo for large appliances?",
+    "answer": "Installation is auto-scheduled within 24-48 hours of delivery. A brand technician will call you prior to visiting your address.",
+    "ttl_seconds": 2592000
+  },
+  {
+    "faq_id": "faq_30",
+    "category": "Payments & Pricing",
+    "question": "Do you offer a price match or price drop refund if price decreases?",
+    "answer": "Prices fluctuate based on ongoing sales and seller promotions. We currently do not offer price matching or partial refunds for subsequent price drops.",
+    "ttl_seconds": 259200
+  }
+]

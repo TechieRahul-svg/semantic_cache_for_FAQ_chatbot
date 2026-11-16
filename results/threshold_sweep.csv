@@ -1,0 +1,62 @@
+threshold,baseline_hits,baseline_correct,baseline_false,baseline_hit_rate,baseline_precision,guard_hits,guard_correct,guard_false,guard_hit_rate,guard_precision,false_hits_removed,hits_lost
+0.7,22,19,3,0.5278,0.8636,22,19,3,0.5278,0.8636,0,0
+0.71,22,19,3,0.5278,0.8636,22,19,3,0.5278,0.8636,0,0
+0.72,22,19,3,0.5278,0.8636,22,19,3,0.5278,0.8636,0,0
+0.73,21,19,2,0.5278,0.9048,21,19,2,0.5278,0.9048,0,0
+0.74,19,17,2,0.4722,0.8947,19,17,2,0.4722,0.8947,0,0
+0.75,17,15,2,0.4167,0.8824,17,15,2,0.4167,0.8824,0,0
+0.76,16,15,1,0.4167,0.9375,16,15,1,0.4167,0.9375,0,0
+0.77,13,12,1,0.3333,0.9231,13,12,1,0.3333,0.9231,0,0
+0.78,11,10,1,0.2778,0.9091,11,10,1,0.2778,0.9091,0,0
+0.79,9,8,1,0.2222,0.8889,9,8,1,0.2222,0.8889,0,0
+0.8,9,8,1,0.2222,0.8889,9,8,1,0.2222,0.8889,0,0
+0.81,7,6,1,0.1667,0.8571,7,6,1,0.1667,0.8571,0,0
+0.82,7,6,1,0.1667,0.8571,7,6,1,0.1667,0.8571,0,0
+0.83,6,6,0,0.1667,1.0,6,6,0,0.1667,1.0,0,0
+0.84,4,4,0,0.1111,1.0,4,4,0,0.Every other resume is mentioned in Rack Chat.
+If you will make these 3 AI projects,
+then your job is guaranteed and it doesn't happen in every resume.
+And they solve a real problem of each production.
+First is semantic cash. When will I get my refund? When will I get my money back? Same questions.
+So why do you call LMS every time? First question came, LLM has answered. You saved the question and answer.
+The other question came, words are different but the meaning is the same.
+So you understand your system and give the saved answers.
+Project in this measure, just how many answers are answered in the project.
+Second is, check the AI judge.
+Today, the answer is also used to check the AI.
+This is the LLM as judge.
+But what are the judge fairs?
+Two models of 30 questions.
+One LLM, then grade them.
+Then, the 30 answers of them.
+And see how much match is.
+Research says that these AI judges are slightly biased.
+The ones who show the answers first, the ones who show the long-term answers,
+or the ones who give their own style, they score more.
+So, your project will show the only biased.
+And finally, third project.
+Attack on your rack-bots.
+In 10 documents, put instructions in your previous instructions,
+or password mention,
+that you need to know that every customer needs to know that every customer needs to know
+that you need to know that you need to know that you need to know that you need to know that
+the client is a safety check which keeps the bot in the document
+and keep following the instructions and check again
+if you are able to attack or not
+and if you need to know the idea and step by step
+plan, comment anything and I will send it to you1111,1.0,0,0
+0.85,3,3,0,0.0833,1.0,3,3,0,0.0833,1.0,0,0
+0.86,2,2,0,0.0556,1.0,2,2,0,0.0556,1.0,0,0
+0.87,2,2,0,0.0556,1.0,2,2,0,0.0556,1.0,0,0
+0.88,2,2,0,0.0556,1.0,2,2,0,0.0556,1.0,0,0
+0.89,1,1,0,0.0278,1.0,1,1,0,0.0278,1.0,0,0
+0.9,1,1,0,0.0278,1.0,1,1,0,0.0278,1.0,0,0
+0.91,1,1,0,0.0278,1.0,1,1,0,0.0278,1.0,0,0
+0.92,0,0,0,0.0,1.0,0,0,0,0.0,1.0,0,0
+0.93,0,0,0,0.0,1.0,0,0,0,0.0,1.0,0,0
+0.94,0,0,0,0.0,1.0,0,0,0,0.0,1.0,0,0
+0.95,0,0,0,0.0,1.0,0,0,0,0.0,1.0,0,0
+0.96,0,0,0,0.0,1.0,0,0,0,0.0,1.0,0,0
+0.97,0,0,0,0.0,1.0,0,0,0,0.0,1.0,0,0
+0.98,0,0,0,0.0,1.0,0,0,0,0.0,1.0,0,0
+0.99,0,0,0,0.0,1.0,0,0,0,0.0,1.0,0,0

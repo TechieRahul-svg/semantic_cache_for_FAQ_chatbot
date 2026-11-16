@@ -1,0 +1,31 @@
+{
+  "optimal_threshold": 0.83,
+  "dev_analysis": {
+    "baseline_false_hits": 0,
+    "guard_false_hits": 0,
+    "false_hits_removed": 0,
+    "hits_lost_by_guard": 0,
+    "examples_caught_false_hits": [],
+    "examples_lost_legitimate_hits": []
+  },
+  "test_analysis": {
+    "test_guard_hit_rate": 0.0833,
+    "test_guard_precision": 1.0,
+    "test_guard_false_hits": 0,
+    "wilson_ci_hit_rate_95": [
+      0.0232,
+      0.2585
+    ],
+    "wilson_ci_precision_95": [
+      0.3424,
+      1.0
+    ]
+  },
+  "cv_5fold_thresholds": [
+    0.83,
+    0.83,
+    0.83,
+    0.8,
+    0.83
+  ]
+}
