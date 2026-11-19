@@ -6,18 +6,18 @@
     "hit_rate_pct": 84.8,
     "llm_calls_made": 76,
     "llm_call_reduction_pct": 84.8,
-    "token_reduction_pct": 84.63,
+    "token_reduction_pct": 84.46,
     "latencies_ms": {
-      "p50": 62.0,
-      "p95": 1210.04,
-      "p99": 1430.59,
-      "avg": 227.5
+      "p50": 13.23,
+      "p95": 1179.89,
+      "p99": 1397.44,
+      "avg": 182.91
     },
     "baseline_latencies_ms": {
-      "p50": 1107.65,
-      "p95": 1393.17,
-      "p99": 1488.44,
-      "avg": 1096.86
+      "p50": 1104.48,
+      "p95": 1395.13,
+      "p99": 1515.0,
+      "avg": 1105.5
     }
   },
   "warm_start": {
@@ -27,18 +27,18 @@
     "hit_rate_pct": 86.4,
     "llm_calls_made": 68,
     "llm_call_reduction_pct": 86.4,
-    "token_reduction_pct": 86.31,
+    "token_reduction_pct": 86.05,
     "latencies_ms": {
-      "p50": 61.0,
-      "p95": 1246.06,
-      "p99": 1496.88,
-      "avg": 214.21
+      "p50": 13.09,
+      "p95": 1137.68,
+      "p99": 1361.13,
+      "avg": 159.52
     },
     "baseline_latencies_ms": {
-      "p50": 1092.43,
-      "p95": 1390.26,
-      "p99": 1505.07,
-      "avg": 1098.43
+      "p50": 1094.08,
+      "p95": 1413.1,
+      "p99": 1548.09,
+      "avg": 1107.65
     }
   }
 }

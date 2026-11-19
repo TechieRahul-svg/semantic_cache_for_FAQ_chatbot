@@ -40,6 +40,23 @@ class AskResponse(BaseModel):
     reason: str
     matched_faq_id: Optional[str] = None
 
+@app.get("/")
+def root():
+    return {
+        "service": "FAQ Semantic Cache API",
+        "status": "online",
+        "interactive_docs": "http://127.0.0.1:8000/docs",
+        "cached_entries": cache.size(),
+        "threshold": service.threshold,
+        "endpoints": {
+            "ask": "POST /ask",
+            "stats": "GET /cache/stats",
+            "prewarm": "POST /cache/prewarm",
+            "clear": "DELETE /cache/clear",
+            "health": "GET /health"
+        }
+    }
+
 @app.get("/health")
 def health_check():
     return {"status": "ok", "cached_entries": cache.size()}
