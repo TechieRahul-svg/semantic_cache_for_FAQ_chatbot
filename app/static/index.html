@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Cache FAQ Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        code,
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Top Navigation & Stats Bar -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div
+                    class="h-9 w-9 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
+                    ⚡
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-white">Semantic Cache Demo</h1>
+                    <p class="text-xs text-slate-400">FAISS IndexFlatIP + Negation Guard + PII Scrubber</p>
+                </div>
+            </div>
+
+            <!-- Live Cache Stats -->
+            <div class="flex items-center gap-3 text-xs">
+                <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2">
+                    <span class="text-slate-400">Cached Entries:</span>
+                    <span id="stat-entries" class="font-bold text-indigo-400 font-mono">0</span>
+                </div>
+                <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2">
+                    <span class="text-slate-400">Total Hits:</span>
+                    <span id="stat-hits" class="font-bold text-emerald-400 font-mono">0</span>
+                </div>
+                <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2">
+                    <span class="text-slate-400">Threshold:</span>
+                    <span class="font-bold text-amber-400 font-mono">0.83</span>
+                </div>
+                <button onclick="prewarmCache()"
+                    class="bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg border border-indigo-500/40 font-medium transition">
+                    Pre-warm 30 FAQs
+                </button>
+                <button onclick="clearCache()"
+                    class="bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white px-3 py-1.5 rounded-lg border border-rose-500/40 font-medium transition">
+                    Clear Cache
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-1 flex flex-col md:flex-row gap-6 w-full">
+
+        <!-- Left Column: Chat and Input -->
+        <div class="flex-1 flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+
+            <!-- Quick Demo Prompts -->
+            <div class="p-4 border-b border-slate-800 bg-slate-900/50">
+                <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">⚡ Quick Test Scenarios
+                    (Click to test):</div>
+                <div class="flex flex-wrap gap-2 text-xs">
+                    <button onclick="setQuery('How do I cancel my order before it ships?')"
+                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
+                        1️⃣ Cold Query (LLM Miss)
+                    </button>
+                    <button onclick="setQuery('I want to cancel my pending order before it gets shipped')"
+                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
+                        2️⃣ Paraphrase (Cache Hit)
+                    </button>
+                    <button onclick="setQuery('order cancel mat karna please shipment jari rakho')"
+                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
+                        3️⃣ Negation Flip (Guard Block)
+                    </button>
+                    <button onclick="setQuery('What is the status of my order ORD-99887766?')"
+                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
+                        4️⃣ PII Leak (Bypassed)
+                    </button>
+                    <button onclick="setQuery('refund kab aayega mere bank account mein?')"
+                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
+                        5️⃣ Hinglish Query
+                    </button>
+                </div>
+            </div>
+
+            <!-- Messages Log -->
+            <div id="messages-container" class="flex-1 p-4 overflow-y-auto space-y-4 max-h-[500px]">
+                <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 text-sm text-slate-300">
+                    👋 Welcome! Ask any e-commerce support question or click one of the quick test presets above to see
+                    the semantic cache, latency comparison, and guardrails in action.
+                </div>
+            </div>
+
+            <!-- Input Form -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900/90">
+                <form id="chat-form" onsubmit="handleSend(event)" class="flex gap-2">
+                    <input id="user-input" type="text"
+                        placeholder="Type your question (e.g. 'How can I return an item?')..."
+                        class="flex-1 bg-slate-950 border border-slate-700 focus:border-indigo-500 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none transition"
+                        required />
+                    <button type="submit" id="send-btn"
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-3 rounded-xl transition flex items-center gap-2 text-sm">
+                        <span>Send</span>
+                        <span>↵</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Live Inspector Card -->
+        <div class="w-full md:w-80 flex flex-col gap-4">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+                <h2 class="text-sm font-bold text-white uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <span>🔍</span> Last Query Inspector
+                </h2>
+
+                <div id="inspector-placeholder" class="text-xs text-slate-500 py-8 text-center">
+                    Send a question to inspect latency, similarity score, and guardrail verdicts.
+                </div>
+
+                <div id="inspector-content" class="hidden space-y-4 text-xs">
+                    <!-- Status Badge -->
+                    <div id="badge-container" class="flex items-center justify-between p-3 rounded-xl border">
+                        <span class="font-bold text-sm" id="insp-status">CACHE HIT</span>
+                        <span class="font-mono text-xs px-2 py-0.5 rounded bg-black/30" id="insp-source">SOURCE:
+                            CACHE</span>
+                    </div>
+
+                    <!-- Metrics Grid -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <div class="text-slate-400 mb-1">Round-trip Latency</div>
+                            <div id="insp-latency" class="text-lg font-bold font-mono text-white">0 ms</div>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <div class="text-slate-400 mb-1">Cosine Similarity</div>
+                            <div id="insp-similarity" class="text-lg font-bold font-mono text-white">0.00</div>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <div class="text-slate-400 mb-1">Tokens Used</div>
+                            <div id="insp-tokens" class="text-base font-bold font-mono text-white">0</div>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <div class="text-slate-400 mb-1">Target Threshold</div>
+                            <div class="text-base font-bold font-mono text-amber-400">0.83</div>
+                        </div>
+                    </div>
+
+                    <!-- Matched FAQ -->
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <div class="text-slate-400 mb-1">Matched Reference FAQ</div>
+                        <div id="insp-matched-faq" class="text-slate-200 font-medium">None</div>
+                    </div>
+
+                    <!-- Reason Verdict -->
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <div class="text-slate-400 mb-1">Pipeline Verdict</div>
+                        <div id="insp-reason" class="text-slate-200 font-mono text-[11px] break-words">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Info Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-xs text-slate-400 space-y-2">
+                <div class="font-bold text-slate-200 text-sm mb-1">How it Works:</div>
+                <p>1. <span class="text-indigo-400 font-semibold">PII Check:</span> Scans for Order IDs, phone numbers &
+                    emails.</p>
+                <p>2. <span class="text-indigo-400 font-semibold">FAISS Dot Product:</span> Measures cosine similarity
+                    against normalized cached embeddings.</p>
+                <p>3. <span class="text-indigo-400 font-semibold">Negation Guard:</span> Checks for meaning flips (e.g.
+                    <i>"cancel"</i> vs <i>"mat cancel karna"</i>).</p>
+                <p>4. <span class="text-indigo-400 font-semibold">Auto Fill:</span> On an LLM miss, safely stores the
+                    clean answer for future hits.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        async function updateStats() {
+            try {
+                const res = await fetch('/cache/stats');
+                const data = await res.json();
+                document.getElementById('stat-entries').innerText = data.total_entries;
+                document.getElementById('stat-hits').innerText = data.total_cache_hits;
+            } catch (e) { console.error(e); }
+        }
+
+        async function prewarmCache() {
+            try {
+                const res = await fetch('/cache/prewarm', { method: 'POST' });
+                const data = await res.json();
+                alert(`Pre-warmed! Cache now contains ${data.total_entries} canonical FAQs.`);
+                updateStats();
+            } catch (e) { alert("Error prewarming cache"); }
+        }
+
+        async function clearCache() {
+            try {
+                await fetch('/cache/clear', { method: 'DELETE' });
+                updateStats();
+                alert("Cache cleared successfully!");
+            } catch (e) { alert("Error clearing cache"); }
+        }
+
+        function setQuery(text) {
+            document.getElementById('user-input').value = text;
+            document.getElementById('user-input').focus();
+        }
+
+        async function handleSend(e) {
+            e.preventDefault();
+            const input = document.getElementById('user-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            input.value = '';
+            appendMessage(query, 'user');
+
+            // Show loading placeholder
+            const loadingId = appendLoading();
+
+            try {
+                const res = await fetch('/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query, tenant_id: "default" })
+                });
+                const data = await res.json();
+                removeLoading(loadingId);
+                appendMessage(data.answer, 'bot', data);
+                updateInspector(data);
+                updateStats();
+            } catch (err) {
+                removeLoading(loadingId);
+                appendMessage("Error communicating with service.", 'bot');
+            }
+        }
+
+        function appendMessage(text, sender, meta = null) {
+            const container = document.getElementById('messages-container');
+            const wrapper = document.createElement('div');
+            wrapper.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+
+            if (sender === 'user') {
+                wrapper.innerHTML = `
+                    <div class="bg-indigo-600 text-white px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-[80%] text-sm shadow-md">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                const isHit = meta && meta.hit;
+                const isPii = meta && meta.reason && meta.reason.includes('pii');
+                const badgeColor = isHit ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : (isPii ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' : 'bg-purple-500/20 text-purple-400 border-purple-500/30');
+                const badgeText = isHit ? '⚡ CACHE HIT' : (isPii ? '🛡️ PII BYPASS' : '🤖 LLM CALL (MISS)');
+                const latency = meta ? `${meta.latency_ms} ms` : '';
+
+                wrapper.innerHTML = `
+                    <div class="bg-slate-800 border border-slate-700/70 text-slate-200 px-4 py-3 rounded-2xl rounded-tl-sm max-w-[85%] text-sm shadow-md space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeColor}">
+                                ${badgeText}
+                            </span>
+                            <span class="text-[11px] text-slate-400 font-mono">${latency}</span>
+                        </div>
+                        <div class="text-slate-100">${text}</div>
+                    </div>
+                `;
+            }
+
+            container.appendChild(wrapper);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function appendLoading() {
+            const container = document.getElementById('messages-container');
+            const id = 'loading-' + Date.now();
+            const wrapper = document.createElement('div');
+            wrapper.id = id;
+            wrapper.className = 'flex justify-start';
+            wrapper.innerHTML = `
+                <div class="bg-slate-800 border border-slate-700 text-slate-400 px-4 py-2.5 rounded-2xl rounded-tl-sm text-xs flex items-center gap-2">
+                    <span class="animate-pulse">● ● ●</span>
+                    <span>Searching FAISS & Checking Guards...</span>
+                </div>
+            `;
+            container.appendChild(wrapper);
+            container.scrollTop = container.scrollHeight;
+            return id;
+        }
+
+        function removeLoading(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function updateInspector(data) {
+            document.getElementById('inspector-placeholder').classList.add('hidden');
+            document.getElementById('inspector-content').classList.remove('hidden');
+
+            const isHit = data.hit;
+            const badgeContainer = document.getElementById('badge-container');
+            const statusEl = document.getElementById('insp-status');
+            const sourceEl = document.getElementById('insp-source');
+
+            if (isHit) {
+                badgeContainer.className = "flex items-center justify-between p-3 rounded-xl border bg-emerald-950/40 border-emerald-500/40 text-emerald-300";
+                statusEl.innerText = "⚡ CACHE HIT";
+            } else if (data.reason.includes('pii')) {
+                badgeContainer.className = "flex items-center justify-between p-3 rounded-xl border bg-amber-950/40 border-amber-500/40 text-amber-300";
+                statusEl.innerText = "🛡️ PII BYPASS";
+            } else {
+                badgeContainer.className = "flex items-center justify-between p-3 rounded-xl border bg-purple-950/40 border-purple-500/40 text-purple-300";
+                statusEl.innerText = "🤖 CACHE MISS (LLM)";
+            }
+
+            sourceEl.innerText = `SOURCE: ${data.source.toUpperCase()}`;
+            document.getElementById('insp-latency').innerText = `${data.latency_ms} ms`;
+            document.getElementById('insp-similarity').innerText = data.similarity > 0 ? data.similarity.toFixed(4) : "0.00";
+            document.getElementById('insp-tokens').innerText = data.tokens_used;
+            document.getElementById('insp-matched-faq').innerText = data.matched_question || "None (New/Low similarity)";
+            document.getElementById('insp-reason').innerText = data.reason;
+        }
+
+        // Initial fetch
+        updateStats();
+    </script>
+</body>
+
+</html>

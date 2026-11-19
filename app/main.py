@@ -2,6 +2,7 @@ import os
 import sys
 from typing import Optional, Dict, Any
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel, Field
 
 # Ensure project root in sys.path
@@ -40,22 +41,12 @@ class AskResponse(BaseModel):
     reason: str
     matched_faq_id: Optional[str] = None
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def root():
-    return {
-        "service": "FAQ Semantic Cache API",
-        "status": "online",
-        "interactive_docs": "http://127.0.0.1:8000/docs",
-        "cached_entries": cache.size(),
-        "threshold": service.threshold,
-        "endpoints": {
-            "ask": "POST /ask",
-            "stats": "GET /cache/stats",
-            "prewarm": "POST /cache/prewarm",
-            "clear": "DELETE /cache/clear",
-            "health": "GET /health"
-        }
-    }
+    html_path = os.path.join(os.path.dirname(__file__), "static", "index.html")
+    if os.path.exists(html_path):
+        return FileResponse(html_path)
+    return HTMLResponse("<h1>FAQ Semantic Cache Service</h1><p>Visit <a href='/docs'>/docs</a></p>")
 
 @app.get("/health")
 def health_check():
