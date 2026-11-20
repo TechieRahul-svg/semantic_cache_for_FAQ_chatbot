@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "eval_001",
+    "question": "Where is my package right now?",
+    "faq_id": "faq_01",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_002",
+    "question": "mera order track kaise karu kahan tak pahucha?",
+    "faq_id": "faq_01",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_003",
+    "question": "expected delivery date nikal gayi par parcel nahi mila",
+    "faq_id": "faq_02",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_004",
+    "question": "My delivery date has already passed and order is still delayed",
+    "faq_id": "faq_02",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_005",
+    "question": "Can I update my shipping address before dispatch?",
+    "faq_id": "faq_03",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_006",
+    "question": "order ship hone se pehle delivery address badal sakte hain kya?",
+    "faq_id": "faq_03",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_007",
+    "question": "How can I get next-day delivery on my order?",
+    "faq_id": "faq_04",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_008",
+    "question": "urgent delivery ya one day delivery ka option kaise milega?",
+    "faq_id": "faq_04",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_009",
+    "question": "Do you deliver items to international locations outside India?",
+    "faq_id": "faq_05",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_010",
+    "question": "kya abroad me delivery karte ho India ke bahar?",
+    "faq_id": "faq_05",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_011",
+    "question": "mujhe ye item nahi chahiye dispatch se pehle cancel kaise karein",
+    "faq_id": "faq_06",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_012",
+    "question": "I want to cancel my pending order before it gets shipped",
+    "faq_id": "faq_06",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_013",
+    "question": "Will I be charged any penalty fee if I cancel my order?",
+    "faq_id": "faq_07",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_014",
+    "question": "order cancel karne pe koi charges ya cancellation fees lagti hai kya?",
+    "faq_id": "faq_07",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_015",
+    "question": "Can I cancel just one product from a combo order?",
+    "faq_id": "faq_08",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_016",
+    "question": "ek sath 3 item mangwaye the sirf ek item cancel karna hai",
+    "faq_id": "faq_08",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_017",
+    "question": "How to check if cash on delivery is supported on my pin code?",
+    "faq_id": "faq_09",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_018",
+    "question": "mere area me cash on delivery COD mil jayega kya?",
+    "faq_id": "faq_09",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_019",
+    "question": "paise kat gaye account se par order confirm nahi hua",
+    "faq_id": "faq_10",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_020",
+    "question": "Bank account was charged but order status says payment failed",
+    "faq_id": "faq_10",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_021",
+    "question": "What are the rules and eligible cards for no cost EMI?",
+    "faq_id": "faq_11",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_022",
+    "question": "no cost EMI pe saman lene ke liye kaunse credit cards chalte hain?",
+    "faq_id": "faq_11",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_023",
+    "question": "Can I switch payment method from COD to online payment after ordering?",
+    "faq_id": "faq_12",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_024",
+    "question": "placed order ka payment method online se cash me change ho sakta hai?",
+    "faq_id": "faq_12",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_025",
+    "question": "How many days do I have to return an item after delivery?",
+    "faq_id": "faq_13",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_026",
+    "question": "delivery ke kitne din baad tak saman return kar sakte hain?",
+    "faq_id": "faq_13",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_027",
+    "question": "How do I raise a return request and schedule pickup?",
+    "faq_id": "faq_14",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_028",
+    "question": "delivered product ko wapas bhejne ke liye return request kaise dalein?",
+    "faq_id": "faq_14",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_029",
+    "question": "pickup boy nahi aaya parcel lene aaj ab kya karein?",
+    "faq_id": "faq_15",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_030",
+    "question": "Courier delivery boy missed the scheduled return pickup appointment",
+    "faq_id": "faq_15",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_031",
+    "question": "Can I replace the delivered shirt with a larger size?",
+    "faq_id": "faq_16",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_032",
+    "question": "shoes ka size chota aa gaya bada size exchange kaise karein?",
+    "faq_id": "faq_16",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_033",
+    "question": "Received a broken product inside the box, how to get replacement?",
+    "faq_id": "faq_17",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_034",
+    "question": "parcel open kiya to product damaged nikla replacement kaise milegi?",
+    "faq_id": "faq_17",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_035",
+    "question": "box khola toh charging cable nahi thi packet mein",
+    "faq_id": "faq_18",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_036",
+    "question": "Package is missing an accessory that was supposed to be included",
+    "faq_id": "faq_18",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_037",
+    "question": "How much time does it take for return refund to hit my bank?",
+    "faq_id": "faq_19",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_038",
+    "question": "return parcel pickup hone ke baad refund kitne din me aayega?",
+    "faq_id": "faq_19",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_039",
+    "question": "refund nahi aaya abhi tak 10 din ho gaye approved hue",
+    "faq_id": "faq_20",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_040",
+    "question": "More than 7 business days have passed and refund has still not arrived",
+    "faq_id": "faq_20",
+    "split": "dev",
+    "language": "en",
+    "has_negation": true,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_041",
+    "question": "How do I provide my UPI ID or bank account for cash on delivery refund?",
+    "faq_id": "faq_21",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_042",
+    "question": "COD order ka refund bank account ya UPI me kaise transfer hoga?",
+    "faq_id": "faq_21",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_043",
+    "question": "Can I choose store wallet credit for instant refund instead of bank?",
+    "faq_id": "faq_22",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_044",
+    "question": "bank me wait nahi karna kya refund turant wallet me le sakte hain?",
+    "faq_id": "faq_22",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_045",
+    "question": "Where can I download the GST invoice copy for my past order?",
+    "faq_id": "faq_23",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_046",
+    "question": "purane order ka bill tax invoice download kahan se karein?",
+    "faq_id": "faq_23",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_047",
+    "question": "How to edit the registered mobile number in my user profile?",
+    "faq_id": "faq_24",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_048",
+    "question": "account ka phone number aur email id change kaise karein?",
+    "faq_id": "faq_24",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_049",
+    "question": "Forgot my login password, how to reset it via OTP or email?",
+    "faq_id": "faq_25",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_050",
+    "question": "login password bhool gaya reset karne ka OTP kaise aayega?",
+    "faq_id": "faq_25",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_051",
+    "question": "How do I permanently delete my profile and shopping account?",
+    "faq_id": "faq_26",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_052",
+    "question": "apna shopping account permanently delete kaise karein?",
+    "faq_id": "faq_26",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_053",
+    "question": "How do I claim brand warranty with the official service center?",
+    "faq_id": "faq_27",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_054",
+    "question": "kharide hue gadget ki warranty brand center se claim kaise karein?",
+    "faq_id": "faq_27",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_055",
+    "question": "Are the products sold on this platform 100 percent original and authentic?",
+    "faq_id": "faq_28",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_056",
+    "question": "kya platform pe bikne wale sare products genuine aur original hote hain?",
+    "faq_id": "faq_28",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_057",
+    "question": "How to book installation and product demo for newly delivered TV?",
+    "faq_id": "faq_29",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_058",
+    "question": "delivered AC ya washing machine ka demo aur installation kaise hoga?",
+    "faq_id": "faq_29",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_059",
+    "question": "Will you refund the difference if the product price drops after I buy?",
+    "faq_id": "faq_30",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_060",
+    "question": "kya khareedne ke baad price kam hone par difference refund milega?",
+    "faq_id": "faq_30",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": null,
+    "pii_type": null
+  },
+  {
+    "id": "eval_061",
+    "question": "Can I return an item after 30 days of purchase?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_062",
+    "question": "Can I get my refund in physical cash instead of bank transfer or wallet?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_063",
+    "question": "Can I cancel an order after the delivery executive has already delivered it?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_064",
+    "question": "Can delivery agent bring package to my office address instead of home at delivery time?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_065",
+    "question": "Can I pay COD order amount using Sodexo or gift vouchers at doorstep?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_066",
+    "question": "Can I get a tax invoice with an overseas foreign company name and VAT number?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_067",
+    "question": "Can I exchange an item for a completely different product category like shoes for a jacket?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_068",
+    "question": "kya delivery boy se open box delivery inspect karwa ke accept kar sakte hain?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_069",
+    "question": "purana order delete karke order history clean kar sakte hain bina account band kiye?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_070",
+    "question": "Can I schedule a specific 2-hour morning time slot for return pickup?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_071",
+    "question": "Is the brand warranty applicable at authorized service centers outside India?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_072",
+    "question": "Can I convert an existing cash on delivery order into 6-month EMI after order placement?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_073",
+    "question": "kya return pickup ke time delivery boy ko cash dekar dusra product le sakte hain?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_074",
+    "question": "kya sale ke baad price badh gaya toh purane rate pe dobara order kar sakte hain?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_075",
+    "question": "kya return window expire hone ke baad bhi product return ho sakta hai?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "same_topic_diff_intent",
+    "pii_type": null
+  },
+  {
+    "id": "eval_076",
+    "question": "order cancel mat karna galti se button press ho gaya tha please continue shipment",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_077",
+    "question": "mujhe refund nahi chahiye product replace kar do same item",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_078",
+    "question": "delivery boy aaya tha maine khud parcel lene se mana kiya tha",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_079",
+    "question": "return pickup cancel kaise karein mujhe product pasand aa gaya rakhna hai",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_080",
+    "question": "account delete mat karna temporary freeze ya deactivate karna hai",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_081",
+    "question": "parcel deliver mat karna main out of town hu agle hafte bhejo",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_082",
+    "question": "COD band kyu kar diya mere address pe pehle chalta tha ab nahi chal raha",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_083",
+    "question": "maine koi return request nahi dali thi cancel my return request",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": true,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_084",
+    "question": "I do not want to change my delivery address keep original default address",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": true,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_085",
+    "question": "mera refund aa gaya hai par extra discount amount cut hua hai",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "negation_flip",
+    "pii_type": null
+  },
+  {
+    "id": "eval_086",
+    "question": "Who won the cricket match yesterday between India and Australia?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_087",
+    "question": "Aaj Delhi aur NCR ka weather kaisa rahega barish hogi kya?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_088",
+    "question": "How to write a binary search algorithm in Python with recursion?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_089",
+    "question": "What is the capital city of Australia?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_090",
+    "question": "IRCTC portal pe tatkal train ticket booking time kya hota hai?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_091",
+    "question": "Suggest the best camera smartphone under 25000 in India currently",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_092",
+    "question": "SBI credit card reward points cash ya statement me redeem kaise karein?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_093",
+    "question": "How to apply for online passport renewal under tatkal scheme?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_094",
+    "question": "Can you give me a high protein vegetarian meal plan for muscle building?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_095",
+    "question": "Zomato gold membership subscription me restaurant dining discount kaise milta hai?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_096",
+    "question": "What are the latest GST slabs and cess on luxury electric automobiles in India?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_097",
+    "question": "Parivahan se driving license renewal online slot kaise book karein?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_098",
+    "question": "Can you explain the ending and timeline paradox of the movie Interstellar?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_099",
+    "question": "What is the current monthly and annual pricing for Netflix India premium plan?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_100",
+    "question": "Stock market Nifty index technical support and resistance levels for tomorrow",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "out_of_domain",
+    "pii_type": null
+  },
+  {
+    "id": "eval_101",
+    "question": "Where is my parcel for order ORD-10001?",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "order_id"
+  },
+  {
+    "id": "eval_102",
+    "question": "mera package kab aayega order id OD-20002 hai",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "order_id"
+  },
+  {
+    "id": "eval_103",
+    "question": "Please check the refund status for order #30003.",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "order_id"
+  },
+  {
+    "id": "eval_104",
+    "question": "Can you cancel my shipment for ORD-40004?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "order_id"
+  },
+  {
+    "id": "eval_105",
+    "question": "kripya mere order ORD-50005 ka invoice bhej dijiye",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "order_id"
+  },
+  {
+    "id": "eval_106",
+    "question": "Please update delivery contact to +91 9876500001.",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "phone"
+  },
+  {
+    "id": "eval_107",
+    "question": "delivery boy ko bolo 9876500002 pe call kare",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "phone"
+  },
+  {
+    "id": "eval_108",
+    "question": "Send SMS confirmation of delivery to 9876500003.",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "phone"
+  },
+  {
+    "id": "eval_109",
+    "question": "Call me at +91-9876500004 regarding damaged package.",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "phone"
+  },
+  {
+    "id": "eval_110",
+    "question": "mera alternate number 9876500005 note kar lijiye",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "phone"
+  },
+  {
+    "id": "eval_111",
+    "question": "Send the tax invoice PDF to customer.one@example.com.",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "email"
+  },
+  {
+    "id": "eval_112",
+    "question": "kripya bill copy rahul.kumar@example.com par mail karein",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "email"
+  },
+  {
+    "id": "eval_113",
+    "question": "Please update my registered email to user3@example.com.",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "email"
+  },
+  {
+    "id": "eval_114",
+    "question": "Resend delivery confirmation to test.buyer@example.com.",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "email"
+  },
+  {
+    "id": "eval_115",
+    "question": "mera refund receipt support.user@example.com pe bhej do",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "email"
+  },
+  {
+    "id": "eval_116",
+    "question": "Process my refund directly to user1@okhdfcbank.",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "upi_id"
+  },
+  {
+    "id": "eval_117",
+    "question": "mera bacha hua refund payment1@okaxis pe transfer kar do",
+    "faq_id": "none",
+    "split": "dev",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "upi_id"
+  },
+  {
+    "id": "eval_118",
+    "question": "Can you credit store cash to buyer3@upi?",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "upi_id"
+  },
+  {
+    "id": "eval_119",
+    "question": "Please initiate return refund to shopper4@okicici.",
+    "faq_id": "none",
+    "split": "test",
+    "language": "en",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "upi_id"
+  },
+  {
+    "id": "eval_120",
+    "question": "paise refund5@paytm vpa handle par bhej dijiye",
+    "faq_id": "none",
+    "split": "test",
+    "language": "hinglish",
+    "has_negation": false,
+    "negative_type": "pii",
+    "pii_type": "upi_id"
+  }
+]
