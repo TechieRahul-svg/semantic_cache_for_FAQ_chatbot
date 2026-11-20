@@ -7,186 +7,330 @@
     <title>Semantic Cache FAQ Bot</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #09090b;
+            background-image:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.12), transparent),
+                radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
+            background-size: 100% 100%, 24px 24px;
         }
 
         code,
         .font-mono {
             font-family: 'JetBrains Mono', monospace;
         }
+
+        /* Subtle custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 9999px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .msg-animate {
+            animation: fadeSlideUp 0.22s ease-out forwards;
+        }
     </style>
 </head>
 
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+<body class="text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
 
-    <!-- Top Navigation & Stats Bar -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
+    <!-- Top Navigation & Telemetry Bar -->
+    <header class="border-b border-white/[0.08] bg-zinc-950/75 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+            <!-- Brand -->
+            <div class="flex items-center gap-3.5">
                 <div
-                    class="h-9 w-9 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
-                    ⚡
+                    class="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-indigo-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-400 shadow-[0_0_20px_-4px_rgba(34,211,238,0.35)]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
                 </div>
                 <div>
-                    <h1 class="text-base font-bold text-white">Semantic Cache Demo</h1>
-                    <p class="text-xs text-slate-400">FAISS IndexFlatIP + Negation Guard + PII Scrubber</p>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-sm sm:text-base font-semibold tracking-tight text-white">Semantic Cache</h1>
+                        <span
+                            class="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Live
+                        </span>
+                    </div>
+                    <p class="text-xs text-zinc-400">FAISS IndexFlatIP · Negation Guard · PII Scrubber</p>
                 </div>
             </div>
 
-            <!-- Live Cache Stats -->
-            <div class="flex items-center gap-3 text-xs">
-                <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2">
-                    <span class="text-slate-400">Cached Entries:</span>
-                    <span id="stat-entries" class="font-bold text-indigo-400 font-mono">0</span>
+            <!-- Live Cache Stats & Controls -->
+            <div class="flex flex-wrap items-center gap-2.5 text-xs">
+                <div
+                    class="flex items-center divide-x divide-white/[0.08] bg-zinc-900/90 border border-white/[0.08] rounded-xl overflow-hidden shadow-sm">
+                    <div class="px-3 py-1.5 flex items-center gap-2">
+                        <span class="text-zinc-500 font-medium">Entries</span>
+                        <span id="stat-entries" class="font-semibold text-cyan-400 font-mono">0</span>
+                    </div>
+                    <div class="px-3 py-1.5 flex items-center gap-2">
+                        <span class="text-zinc-500 font-medium">Hits</span>
+                        <span id="stat-hits" class="font-semibold text-emerald-400 font-mono">0</span>
+                    </div>
+                    <div class="px-3 py-1.5 flex items-center gap-2">
+                        <span class="text-zinc-500 font-medium">Threshold</span>
+                        <span class="font-semibold text-amber-400 font-mono">0.83</span>
+                    </div>
                 </div>
-                <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2">
-                    <span class="text-slate-400">Total Hits:</span>
-                    <span id="stat-hits" class="font-bold text-emerald-400 font-mono">0</span>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="prewarmCache()"
+                        class="inline-flex items-center gap-1.5 bg-white/[0.06] hover:bg-cyan-500/20 text-zinc-200 hover:text-cyan-300 px-3 py-1.5 rounded-xl border border-white/[0.1] hover:border-cyan-500/40 font-medium transition-all duration-150 cursor-pointer">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        Pre-warm 30 FAQs
+                    </button>
+                    <button onclick="clearCache()"
+                        class="inline-flex items-center gap-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 hover:text-rose-300 px-3 py-1.5 rounded-xl border border-rose-500/20 hover:border-rose-500/40 font-medium transition-all duration-150 cursor-pointer">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Clear
+                    </button>
                 </div>
-                <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2">
-                    <span class="text-slate-400">Threshold:</span>
-                    <span class="font-bold text-amber-400 font-mono">0.83</span>
-                </div>
-                <button onclick="prewarmCache()"
-                    class="bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg border border-indigo-500/40 font-medium transition">
-                    Pre-warm 30 FAQs
-                </button>
-                <button onclick="clearCache()"
-                    class="bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white px-3 py-1.5 rounded-lg border border-rose-500/40 font-medium transition">
-                    Clear Cache
-                </button>
             </div>
         </div>
     </header>
 
     <!-- Main Content Area -->
-    <main class="max-w-6xl mx-auto px-4 py-6 flex-1 flex flex-col md:flex-row gap-6 w-full">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 flex flex-col lg:flex-row gap-6 w-full">
 
-        <!-- Left Column: Chat and Input -->
-        <div class="flex-1 flex flex-col bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+        <!-- Left Column: Chat Workspace -->
+        <section
+            class="flex-1 flex flex-col bg-zinc-900/70 backdrop-blur-md border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl shadow-black/40 min-h-[600px]">
 
             <!-- Quick Demo Prompts -->
-            <div class="p-4 border-b border-slate-800 bg-slate-900/50">
-                <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">⚡ Quick Test Scenarios
-                    (Click to test):</div>
+            <div class="px-5 py-4 border-b border-white/[0.06] bg-zinc-950/40">
+                <div class="flex items-center justify-between mb-2.5">
+                    <span
+                        class="text-[11px] font-semibold uppercase tracking-widest text-zinc-400 flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                        Quick Test Scenarios
+                    </span>
+                    <span class="text-[11px] text-zinc-500">Click to populate input</span>
+                </div>
                 <div class="flex flex-wrap gap-2 text-xs">
                     <button onclick="setQuery('How do I cancel my order before it ships?')"
-                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
-                        1️⃣ Cold Query (LLM Miss)
+                        class="group inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white px-3 py-1.5 rounded-lg border border-white/[0.08] hover:border-white/20 transition cursor-pointer">
+                        <span
+                            class="font-mono text-[10px] text-violet-400 bg-violet-500/10 px-1.5 py-0.5 rounded">01</span>
+                        Cold Query (LLM Miss)
                     </button>
                     <button onclick="setQuery('I want to cancel my pending order before it gets shipped')"
-                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
-                        2️⃣ Paraphrase (Cache Hit)
+                        class="group inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white px-3 py-1.5 rounded-lg border border-white/[0.08] hover:border-white/20 transition cursor-pointer">
+                        <span
+                            class="font-mono text-[10px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">02</span>
+                        Paraphrase (Cache Hit)
                     </button>
                     <button onclick="setQuery('order cancel mat karna please shipment jari rakho')"
-                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
-                        3️⃣ Negation Flip (Guard Block)
+                        class="group inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white px-3 py-1.5 rounded-lg border border-white/[0.08] hover:border-white/20 transition cursor-pointer">
+                        <span class="font-mono text-[10px] text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded">03</span>
+                        Negation Flip (Guard Block)
                     </button>
                     <button onclick="setQuery('What is the status of my order ORD-99887766?')"
-                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
-                        4️⃣ PII Leak (Bypassed)
+                        class="group inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white px-3 py-1.5 rounded-lg border border-white/[0.08] hover:border-white/20 transition cursor-pointer">
+                        <span
+                            class="font-mono text-[10px] text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded">04</span>
+                        PII Leak (Bypassed)
                     </button>
                     <button onclick="setQuery('refund kab aayega mere bank account mein?')"
-                        class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded-lg border border-slate-700 text-left transition">
-                        5️⃣ Hinglish Query
+                        class="group inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white px-3 py-1.5 rounded-lg border border-white/[0.08] hover:border-white/20 transition cursor-pointer">
+                        <span class="font-mono text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">05</span>
+                        Hinglish Query
                     </button>
                 </div>
             </div>
 
             <!-- Messages Log -->
-            <div id="messages-container" class="flex-1 p-4 overflow-y-auto space-y-4 max-h-[500px]">
-                <div class="bg-slate-800/60 border border-slate-700/60 rounded-xl p-4 text-sm text-slate-300">
-                    👋 Welcome! Ask any e-commerce support question or click one of the quick test presets above to see
-                    the semantic cache, latency comparison, and guardrails in action.
+            <div id="messages-container" class="flex-1 p-5 overflow-y-auto space-y-4 max-h-[540px]">
+                <div
+                    class="flex items-start gap-3.5 bg-gradient-to-r from-cyan-500/[0.07] to-transparent border border-cyan-500/20 rounded-xl p-4 text-sm text-zinc-300">
+                    <div
+                        class="mt-0.5 h-7 w-7 shrink-0 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                    </div>
+                    <div class="leading-relaxed">
+                        <p class="font-medium text-zinc-100 mb-0.5">Welcome to the Semantic Cache Sandbox</p>
+                        <p class="text-xs text-zinc-400">Ask any e-commerce support question or pick a test scenario
+                            above to observe vector similarity matching, latency savings, and safety guardrails in real
+                            time.</p>
+                    </div>
                 </div>
             </div>
 
             <!-- Input Form -->
-            <div class="p-4 border-t border-slate-800 bg-slate-900/90">
-                <form id="chat-form" onsubmit="handleSend(event)" class="flex gap-2">
+            <div class="p-4 border-t border-white/[0.06] bg-zinc-950/60">
+                <form id="chat-form" onsubmit="handleSend(event)"
+                    class="flex items-center gap-2 bg-zinc-900 border border-white/[0.1] focus-within:border-cyan-500/60 focus-within:ring-2 focus-within:ring-cyan-500/15 rounded-xl p-1.5 transition-all">
                     <input id="user-input" type="text"
-                        placeholder="Type your question (e.g. 'How can I return an item?')..."
-                        class="flex-1 bg-slate-950 border border-slate-700 focus:border-indigo-500 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none transition"
+                        placeholder="Ask a support question (e.g. 'How can I return an item?')..."
+                        class="flex-1 bg-transparent px-3 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none"
                         required />
                     <button type="submit" id="send-btn"
-                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-3 rounded-xl transition flex items-center gap-2 text-sm">
+                        class="bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-semibold px-4 py-2 rounded-lg transition-colors flex items-center gap-1.5 text-sm cursor-pointer shrink-0">
                         <span>Send</span>
-                        <span>↵</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
                     </button>
                 </form>
             </div>
-        </div>
+        </section>
 
-        <!-- Right Column: Live Inspector Card -->
-        <div class="w-full md:w-80 flex flex-col gap-4">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-                <h2 class="text-sm font-bold text-white uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <span>🔍</span> Last Query Inspector
-                </h2>
-
-                <div id="inspector-placeholder" class="text-xs text-slate-500 py-8 text-center">
-                    Send a question to inspect latency, similarity score, and guardrail verdicts.
+        <!-- Right Column: Telemetry Inspector & Pipeline Guide -->
+        <aside class="w-full lg:w-96 flex flex-col gap-5">
+            <!-- Live Inspector Card -->
+            <div
+                class="bg-zinc-900/70 backdrop-blur-md border border-white/[0.08] rounded-2xl p-5 shadow-xl shadow-black/30">
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/[0.06]">
+                    <h2 class="text-xs font-semibold text-zinc-200 uppercase tracking-widest flex items-center gap-2">
+                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Query Inspector
+                    </h2>
+                    <span class="text-[10px] font-mono text-zinc-500">TELEMETRY</span>
                 </div>
 
-                <div id="inspector-content" class="hidden space-y-4 text-xs">
+                <div id="inspector-placeholder"
+                    class="flex flex-col items-center justify-center text-center py-10 px-4 border border-dashed border-white/[0.08] rounded-xl bg-zinc-950/30">
+                    <div
+                        class="h-10 w-10 rounded-full bg-zinc-900 border border-white/[0.08] flex items-center justify-center text-zinc-500 mb-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <p class="text-xs text-zinc-400 leading-relaxed max-w-[220px]">
+                        Send a query to inspect round-trip latency, cosine similarity, and guardrail verdicts.
+                    </p>
+                </div>
+
+                <div id="inspector-content" class="hidden space-y-3.5 text-xs">
                     <!-- Status Badge -->
-                    <div id="badge-container" class="flex items-center justify-between p-3 rounded-xl border">
-                        <span class="font-bold text-sm" id="insp-status">CACHE HIT</span>
-                        <span class="font-mono text-xs px-2 py-0.5 rounded bg-black/30" id="insp-source">SOURCE:
-                            CACHE</span>
+                    <div id="badge-container" class="flex items-center justify-between p-3.5 rounded-xl border">
+                        <span class="font-bold text-sm tracking-tight" id="insp-status">CACHE HIT</span>
+                        <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-md bg-black/30"
+                            id="insp-source">SOURCE: CACHE</span>
                     </div>
 
                     <!-- Metrics Grid -->
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                            <div class="text-slate-400 mb-1">Round-trip Latency</div>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <div class="bg-zinc-950/70 p-3.5 rounded-xl border border-white/[0.06]">
+                            <div class="text-[11px] text-zinc-500 mb-1">Latency</div>
                             <div id="insp-latency" class="text-lg font-bold font-mono text-white">0 ms</div>
                         </div>
-                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                            <div class="text-slate-400 mb-1">Cosine Similarity</div>
+                        <div class="bg-zinc-950/70 p-3.5 rounded-xl border border-white/[0.06]">
+                            <div class="text-[11px] text-zinc-500 mb-1">Cosine Similarity</div>
                             <div id="insp-similarity" class="text-lg font-bold font-mono text-white">0.00</div>
                         </div>
-                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                            <div class="text-slate-400 mb-1">Tokens Used</div>
+                        <div class="bg-zinc-950/70 p-3.5 rounded-xl border border-white/[0.06]">
+                            <div class="text-[11px] text-zinc-500 mb-1">Tokens Used</div>
                             <div id="insp-tokens" class="text-base font-bold font-mono text-white">0</div>
                         </div>
-                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                            <div class="text-slate-400 mb-1">Target Threshold</div>
+                        <div class="bg-zinc-950/70 p-3.5 rounded-xl border border-white/[0.06]">
+                            <div class="text-[11px] text-zinc-500 mb-1">Target Threshold</div>
                             <div class="text-base font-bold font-mono text-amber-400">0.83</div>
                         </div>
                     </div>
 
                     <!-- Matched FAQ -->
-                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                        <div class="text-slate-400 mb-1">Matched Reference FAQ</div>
-                        <div id="insp-matched-faq" class="text-slate-200 font-medium">None</div>
+                    <div class="bg-zinc-950/70 p-3.5 rounded-xl border border-white/[0.06]">
+                        <div class="text-[11px] text-zinc-500 mb-1.5">Matched Reference FAQ</div>
+                        <div id="insp-matched-faq" class="text-zinc-200 font-medium leading-snug">None</div>
                     </div>
 
                     <!-- Reason Verdict -->
-                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                        <div class="text-slate-400 mb-1">Pipeline Verdict</div>
-                        <div id="insp-reason" class="text-slate-200 font-mono text-[11px] break-words">-</div>
+                    <div class="bg-zinc-950/70 p-3.5 rounded-xl border border-white/[0.06]">
+                        <div class="text-[11px] text-zinc-500 mb-1.5">Pipeline Verdict</div>
+                        <div id="insp-reason"
+                            class="text-zinc-300 font-mono text-[11px] leading-relaxed break-words bg-zinc-900/90 px-2.5 py-2 rounded-lg border border-white/[0.05]">
+                            -</div>
                     </div>
                 </div>
             </div>
 
             <!-- Architecture Info Card -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-xs text-slate-400 space-y-2">
-                <div class="font-bold text-slate-200 text-sm mb-1">How it Works:</div>
-                <p>1. <span class="text-indigo-400 font-semibold">PII Check:</span> Scans for Order IDs, phone numbers &
-                    emails.</p>
-                <p>2. <span class="text-indigo-400 font-semibold">FAISS Dot Product:</span> Measures cosine similarity
-                    against normalized cached embeddings.</p>
-                <p>3. <span class="text-indigo-400 font-semibold">Negation Guard:</span> Checks for meaning flips (e.g.
-                    <i>"cancel"</i> vs <i>"mat cancel karna"</i>).</p>
-                <p>4. <span class="text-indigo-400 font-semibold">Auto Fill:</span> On an LLM miss, safely stores the
-                    clean answer for future hits.</p>
+            <div class="bg-zinc-900/50 border border-white/[0.07] rounded-2xl p-5 text-xs text-zinc-400">
+                <div class="font-semibold text-zinc-200 uppercase tracking-widest text-[11px] mb-4">Request Pipeline
+                </div>
+                <ol class="relative border-l border-white/[0.1] ml-2 space-y-4">
+                    <li class="pl-4 relative">
+                        <span
+                            class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-amber-400/80 ring-4 ring-zinc-950"></span>
+                        <div class="text-zinc-200 font-semibold mb-0.5">1. PII Scrubber</div>
+                        <p class="leading-relaxed text-zinc-400">Scans for Order IDs, phone numbers &amp; emails before
+                            caching.</p>
+                    </li>
+                    <li class="pl-4 relative">
+                        <span
+                            class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-cyan-400/80 ring-4 ring-zinc-950"></span>
+                        <div class="text-zinc-200 font-semibold mb-0.5">2. FAISS Dot Product</div>
+                        <p class="leading-relaxed text-zinc-400">Computes cosine similarity against normalized cached
+                            embeddings.</p>
+                    </li>
+                    <li class="pl-4 relative">
+                        <span
+                            class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-rose-400/80 ring-4 ring-zinc-950"></span>
+                        <div class="text-zinc-200 font-semibold mb-0.5">3. Negation Guard</div>
+                        <p class="leading-relaxed text-zinc-400">Detects intent reversals (e.g. <i
+                                class="text-zinc-300">"cancel"</i> vs <i class="text-zinc-300">"mat cancel karna"</i>).
+                        </p>
+                    </li>
+                    <li class="pl-4 relative">
+                        <span
+                            class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-emerald-400/80 ring-4 ring-zinc-950"></span>
+                        <div class="text-zinc-200 font-semibold mb-0.5">4. Auto Fill</div>
+                        <p class="leading-relaxed text-zinc-400">On an LLM miss, safely stores the clean answer for
+                            future hits.</p>
+                    </li>
+                </ol>
             </div>
-        </div>
+        </aside>
 
     </main>
 
@@ -254,30 +398,34 @@
         function appendMessage(text, sender, meta = null) {
             const container = document.getElementById('messages-container');
             const wrapper = document.createElement('div');
-            wrapper.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
+            wrapper.className = (sender === 'user' ? 'flex justify-end' : 'flex justify-start') + ' msg-animate';
 
             if (sender === 'user') {
                 wrapper.innerHTML = `
-                    <div class="bg-indigo-600 text-white px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-[80%] text-sm shadow-md">
+                    <div class="bg-cyan-500 text-zinc-950 font-medium px-4 py-2.5 rounded-2xl rounded-br-sm max-w-[80%] text-sm shadow-lg shadow-cyan-500/10 leading-relaxed">
                         ${text}
                     </div>
                 `;
             } else {
                 const isHit = meta && meta.hit;
                 const isPii = meta && meta.reason && meta.reason.includes('pii');
-                const badgeColor = isHit ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : (isPii ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' : 'bg-purple-500/20 text-purple-400 border-purple-500/30');
+                const badgeColor = isHit
+                    ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                    : (isPii
+                        ? 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+                        : 'bg-violet-500/15 text-violet-300 border-violet-500/30');
                 const badgeText = isHit ? '⚡ CACHE HIT' : (isPii ? '🛡️ PII BYPASS' : '🤖 LLM CALL (MISS)');
                 const latency = meta ? `${meta.latency_ms} ms` : '';
 
                 wrapper.innerHTML = `
-                    <div class="bg-slate-800 border border-slate-700/70 text-slate-200 px-4 py-3 rounded-2xl rounded-tl-sm max-w-[85%] text-sm shadow-md space-y-2">
-                        <div class="flex items-center gap-2">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeColor}">
+                    <div class="bg-zinc-900/90 border border-white/[0.08] text-zinc-200 px-4 py-3.5 rounded-2xl rounded-bl-sm max-w-[85%] text-sm shadow-md space-y-2.5">
+                        <div class="flex items-center justify-between gap-3">
+                            <span class="text-[10px] font-mono font-semibold tracking-wide px-2 py-0.5 rounded-md border ${badgeColor}">
                                 ${badgeText}
                             </span>
-                            <span class="text-[11px] text-slate-400 font-mono">${latency}</span>
+                            <span class="text-[11px] text-zinc-500 font-mono">${latency}</span>
                         </div>
-                        <div class="text-slate-100">${text}</div>
+                        <div class="text-zinc-100 leading-relaxed">${text}</div>
                     </div>
                 `;
             }
@@ -291,11 +439,15 @@
             const id = 'loading-' + Date.now();
             const wrapper = document.createElement('div');
             wrapper.id = id;
-            wrapper.className = 'flex justify-start';
+            wrapper.className = 'flex justify-start msg-animate';
             wrapper.innerHTML = `
-                <div class="bg-slate-800 border border-slate-700 text-slate-400 px-4 py-2.5 rounded-2xl rounded-tl-sm text-xs flex items-center gap-2">
-                    <span class="animate-pulse">● ● ●</span>
-                    <span>Searching FAISS & Checking Guards...</span>
+                <div class="bg-zinc-900/90 border border-white/[0.08] text-zinc-400 px-4 py-3 rounded-2xl rounded-bl-sm text-xs flex items-center gap-2.5">
+                    <span class="flex gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce" style="animation-delay: 0ms"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce" style="animation-delay: 150ms"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce" style="animation-delay: 300ms"></span>
+                    </span>
+                    <span class="font-mono text-[11px]">Searching FAISS &amp; checking guards...</span>
                 </div>
             `;
             container.appendChild(wrapper);
@@ -318,13 +470,13 @@
             const sourceEl = document.getElementById('insp-source');
 
             if (isHit) {
-                badgeContainer.className = "flex items-center justify-between p-3 rounded-xl border bg-emerald-950/40 border-emerald-500/40 text-emerald-300";
+                badgeContainer.className = "flex items-center justify-between p-3.5 rounded-xl border bg-emerald-500/10 border-emerald-500/30 text-emerald-300";
                 statusEl.innerText = "⚡ CACHE HIT";
             } else if (data.reason.includes('pii')) {
-                badgeContainer.className = "flex items-center justify-between p-3 rounded-xl border bg-amber-950/40 border-amber-500/40 text-amber-300";
+                badgeContainer.className = "flex items-center justify-between p-3.5 rounded-xl border bg-amber-500/10 border-amber-500/30 text-amber-300";
                 statusEl.innerText = "🛡️ PII BYPASS";
             } else {
-                badgeContainer.className = "flex items-center justify-between p-3 rounded-xl border bg-purple-950/40 border-purple-500/40 text-purple-300";
+                badgeContainer.className = "flex items-center justify-between p-3.5 rounded-xl border bg-violet-500/10 border-violet-500/30 text-violet-300";
                 statusEl.innerText = "🤖 CACHE MISS (LLM)";
             }
 
