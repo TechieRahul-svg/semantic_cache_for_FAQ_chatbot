@@ -3,7 +3,7 @@ from typing import Dict, Any, Optional
 
 from src.embeddings import EmbeddingModel
 from src.cache import SemanticCache
-from src.guards import contains_pii, is_negation_conflict
+from src.guards import contains_pii, is_negation_conflict, is_numerical_constraint_conflict
 from src.llm import LLMCaller
 
 class FAQService:
@@ -81,10 +81,11 @@ class FAQService:
         if self.enable_cache and search_results:
             top_sim, top_entry = search_results[0]
             if top_sim >= self.threshold:
-                # 4a. Check Negation Guard
-                if self.use_guard and is_negation_conflict(query, top_entry["question"]):
-                    # Guard blocked: treat as miss
-                    guard_blocked = True
+                # 4a. Check Guardrails (Negation and Numerical Policy Constraints)
+                if self.use_guard:
+                    neg_conflict = is_negation_conflict(query, top_entry["question"])
+                    num_conflict = is_numerical_constraint_conflict(query, top_entry["question"], top_entry["answer"])
+                    guard_blocked = neg_conflict or num_conflict
                 else:
                     guard_blocked = False
 
