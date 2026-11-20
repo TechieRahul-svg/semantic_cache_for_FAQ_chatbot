@@ -38,8 +38,14 @@ service = FAQService(
 )
 
 class AskRequest(BaseModel):
-    query: str = Field(..., example="How do I cancel my order before dispatch?")
-    tenant_id: str = Field(default="default", example="default")
+    query: str = Field(
+        ...,
+        json_schema_extra={"example": "How do I cancel my order before dispatch?"}
+    )
+    tenant_id: str = Field(
+        default="default",
+        json_schema_extra={"example": "default"}
+    )
 
 class AskResponse(BaseModel):
     answer: str
