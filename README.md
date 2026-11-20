@@ -33,7 +33,15 @@ User Query
       Tokens used: 0)                                              Latency ~1100 ms)
                                                                          │
                                                                          ▼
-                                                           [ 5. Output PII Check ]
+                                                           [ 5. FAQ Retrieval ]
+                                                           (FAISS document index)
+                                                                  │           │
+                                                        (Relevant FAQ) (No relevant FAQ)
+                                                                  ▼           ▼
+                                                           [ 6. LLM Context ] [ FALLBACK ]
+                                                                  │
+                                                                  ▼
+                                                           [ 7. Output PII Check ]
                                                            (Verify generated answer)
                                                                    │           │
                                                              (Clean answer) (Contains PII)
@@ -45,6 +53,11 @@ User Query
                                                                          ▼
                                                                   Return to User
 ```
+
+On a cache miss, the service retrieves relevant FAQ documents from a normalized
+FAISS index and supplies their question/answer text to the existing LLM
+integration. If no document clears the retrieval threshold, it returns an
+explicit support fallback and does not cache that fallback response.
 
 ---
 

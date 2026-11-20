@@ -13,13 +13,15 @@ class FAQService:
         embedder: EmbeddingModel,
         llm_caller: LLMCaller,
         threshold: float = 0.83,
-        use_guard: bool = True
+        use_guard: bool = True,
+        retriever=None
     ):
         self.cache = cache
         self.embedder = embedder
         self.llm = llm_caller
         self.threshold = threshold
         self.use_guard = use_guard
+        self.retriever = retriever
         self.query_logs = []
 
     def ask(
@@ -100,19 +102,44 @@ class FAQService:
                     self.query_logs.append(result)
                     return result
 
-        # 5. Cache MISS -> Call LLM
-        llm_res = self.llm.generate_answer(query, virtual_clock=virtual_clock)
+        # 5. Cache MISS -> Retrieve FAQ context, then call the existing LLM.
+        retrieved_docs = self.retriever.search(query_vec, top_k=3) if self.retriever else []
+        if retrieved_docs:
+            context = "\n\n".join(
+                f"FAQ: {document['question']}\nAnswer: {document['answer']}"
+                for _, document in retrieved_docs
+            )
+            llm_res = self.llm.generate_answer(
+                query,
+                virtual_clock=virtual_clock,
+                context=context
+            )
+            answer = llm_res["answer"]
+            source = "llm"
+            reason = "cache_miss_rag"
+        else:
+            answer = (
+                "I’m sorry, but I couldn’t find a relevant FAQ for that question. "
+                "Please contact customer support for further assistance."
+            )
+            llm_res = {
+                "latency_ms": 0.0,
+                "total_tokens": 0
+            }
+            source = "fallback"
+            reason = "cache_miss_no_relevant_faq"
+
         base_pipeline_ms = embed_ms + lookup_ms
         total_latency = (base_pipeline_ms + llm_res["latency_ms"]) if virtual_clock else round((time.time() - start_time) * 1000.0, 2)
 
         # 6. Two-Sided PII Check on Generated Answer before Cache Write
-        answer_has_pii, ans_pii_reason = contains_pii(llm_res["answer"])
-        if not answer_has_pii and not self.cache.read_only:
+        answer_has_pii, ans_pii_reason = contains_pii(answer)
+        if source != "fallback" and not answer_has_pii and not self.cache.read_only:
             # Safely write to cache
             self.cache.add(
                 vector=query_vec,
                 question=query,
-                answer=llm_res["answer"],
+                answer=answer,
                 faq_id="dynamic_entry",
                 category="dynamic",
                 ttl_seconds=2592000,
@@ -121,13 +148,13 @@ class FAQService:
             )
 
         result = {
-            "answer": llm_res["answer"],
+            "answer": answer,
             "hit": False,
             "similarity": round(search_results[0][0], 4) if search_results else 0.0,
             "latency_ms": total_latency,
             "tokens_used": llm_res["total_tokens"],
-            "source": "llm",
-            "reason": "cache_miss"
+            "source": source,
+            "reason": reason
         }
         self.query_logs.append(result)
         return result
