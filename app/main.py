@@ -14,6 +14,7 @@ from src.embeddings import EmbeddingModel
 from src.cache import SemanticCache
 from src.llm import LLMCaller
 from src.service import FAQService
+from src.retriever import FAQRetriever
 
 app = FastAPI(
     title="FAQ Semantic Cache Service",
@@ -25,7 +26,16 @@ app = FastAPI(
 embedder = EmbeddingModel("sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
 cache = SemanticCache(dimension=384, read_only=False)
 llm = LLMCaller()
-service = FAQService(cache=cache, embedder=embedder, llm_caller=llm, threshold=0.83, use_guard=True)
+faqs_path = os.path.join(os.path.dirname(__file__), "..", "data", "faqs_30.json")
+retriever = FAQRetriever(faqs_path=faqs_path, embedder=embedder)
+service = FAQService(
+    cache=cache,
+    embedder=embedder,
+    llm_caller=llm,
+    threshold=0.83,
+    use_guard=True,
+    retriever=retriever
+)
 
 class AskRequest(BaseModel):
     query: str = Field(..., example="How do I cancel my order before dispatch?")

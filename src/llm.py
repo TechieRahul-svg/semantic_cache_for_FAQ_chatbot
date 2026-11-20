@@ -11,7 +11,12 @@ class LLMCaller:
         self.mode = mode or os.getenv("LLM_MODE", "mock").lower()
         self.api_key = os.getenv("LLM_API_KEY", os.getenv("GEMINI_API_KEY", os.getenv("OPENAI_API_KEY", "")))
 
-    def generate_answer(self, query: str, virtual_clock: bool = False) -> Dict[str, Any]:
+    def generate_answer(
+        self,
+        query: str,
+        virtual_clock: bool = False,
+        context: Optional[str] = None
+    ) -> Dict[str, Any]:
         """
         Generates an answer using either live LLM API or calibrated mock backend.
         Returns:
@@ -25,7 +30,7 @@ class LLMCaller:
             }
         """
         if self.mode == "real" and self.api_key:
-            return self._call_real_llm(query)
+            return self._call_real_llm(query, context=context)
         else:
             return self._call_mock_llm(query, virtual_clock=virtual_clock)
 
@@ -56,7 +61,7 @@ class LLMCaller:
             "model": "mock-gpt-4o-mini"
         }
 
-    def _call_real_llm(self, query: str) -> Dict[str, Any]:
+    def _call_real_llm(self, query: str, context: Optional[str] = None) -> Dict[str, Any]:
         """
         Optional live API caller for demo verification.
         Supports standard OpenAI-compatible endpoints or Google Gemini.
@@ -72,7 +77,16 @@ class LLMCaller:
                     model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
                     messages=[
                         {"role": "system", "content": "You are a concise e-commerce support assistant."},
-                        {"role": "user", "content": query}
+                        {
+                            "role": "user",
+                            "content": (
+                                f"Use the following FAQ context to answer the question. "
+                                f"If it does not answer the question, say so clearly.\n\n"
+                                f"FAQ context:\n{context}\n\nQuestion: {query}"
+                                if context
+                                else query
+                            )
+                        }
                     ],
                     max_tokens=100
                 )
