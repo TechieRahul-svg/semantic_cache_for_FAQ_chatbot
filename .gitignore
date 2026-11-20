@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Benchmark reports
+
+results/cold_report.json
+results/cold_report.md
+results/warm_report.json
+results/warm_report.md
+results/rag_benchmark_report.json
+results/rag_benchmark_report.md
