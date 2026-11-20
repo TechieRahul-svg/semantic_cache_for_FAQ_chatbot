@@ -1,4 +1,8 @@
+import os
+import sys
 import json
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from src.guards import contains_pii
 
 with open("data/eval_dataset_100.json", "r", encoding="utf-8") as f:

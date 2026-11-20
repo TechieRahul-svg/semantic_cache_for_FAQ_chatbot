@@ -3,18 +3,19 @@ from typing import Dict, Any, Optional
 
 from src.embeddings import EmbeddingModel
 from src.cache import SemanticCache
-from src.guards import contains_pii, is_negation_conflict
+from src.guards import contains_pii, is_negation_conflict, is_numerical_constraint_conflict
 from src.llm import LLMCaller
 
 class FAQService:
     def __init__(
         self,
-        cache: SemanticCache,
-        embedder: EmbeddingModel,
-        llm_caller: LLMCaller,
+        cache: Optional[SemanticCache] = None,
+        embedder: Optional[EmbeddingModel] = None,
+        llm_caller: Optional[LLMCaller] = None,
         threshold: float = 0.83,
         use_guard: bool = True,
-        retriever=None
+        retriever=None,
+        enable_cache: bool = True
     ):
         self.cache = cache
         self.embedder = embedder
@@ -22,6 +23,7 @@ class FAQService:
         self.threshold = threshold
         self.use_guard = use_guard
         self.retriever = retriever
+        self.enable_cache = enable_cache
         self.query_logs = []
 
     def ask(
@@ -62,24 +64,28 @@ class FAQService:
         query_vec = self.embedder.encode(query)[0]
         embed_ms = round((time.time() - embed_start) * 1000.0, 2)
 
-        # 3. Cache Lookup
-        lookup_start = time.time()
-        search_results = self.cache.search(
-            query_vector=query_vec,
-            top_k=1,
-            tenant_id=tenant_id,
-            current_time=now
-        )
-        lookup_ms = round((time.time() - lookup_start) * 1000.0, 2)
+        # 3. Cache Lookup (only when cache is enabled)
+        search_results = []
+        lookup_ms = 0.0
+        if self.enable_cache and self.cache is not None:
+            lookup_start = time.time()
+            search_results = self.cache.search(
+                query_vector=query_vec,
+                top_k=1,
+                tenant_id=tenant_id,
+                current_time=now
+            )
+            lookup_ms = round((time.time() - lookup_start) * 1000.0, 2)
 
-        # 4. Evaluate Hit vs Miss
-        if search_results:
+        # 4. Evaluate Hit vs Miss (only when cache is enabled)
+        if self.enable_cache and search_results:
             top_sim, top_entry = search_results[0]
             if top_sim >= self.threshold:
-                # 4a. Check Negation Guard
-                if self.use_guard and is_negation_conflict(query, top_entry["question"]):
-                    # Guard blocked: treat as miss
-                    guard_blocked = True
+                # 4a. Check Guardrails (Negation and Numerical Policy Constraints)
+                if self.use_guard:
+                    neg_conflict = is_negation_conflict(query, top_entry["question"])
+                    num_conflict = is_numerical_constraint_conflict(query, top_entry["question"], top_entry["answer"])
+                    guard_blocked = neg_conflict or num_conflict
                 else:
                     guard_blocked = False
 
@@ -102,7 +108,7 @@ class FAQService:
                     self.query_logs.append(result)
                     return result
 
-        # 5. Cache MISS -> Retrieve FAQ context, then call the existing LLM.
+        # 5. Cache MISS or Baseline RAG -> Retrieve FAQ context, then call LLM
         retrieved_docs = self.retriever.search(query_vec, top_k=3) if self.retriever else []
         if retrieved_docs:
             context = "\n\n".join(
@@ -116,7 +122,7 @@ class FAQService:
             )
             answer = llm_res["answer"]
             source = "llm"
-            reason = "cache_miss_rag"
+            reason = "cache_miss_rag" if self.enable_cache else "baseline_rag"
         else:
             answer = (
                 "I’m sorry, but I couldn’t find a relevant FAQ for that question. "
@@ -132,9 +138,15 @@ class FAQService:
         base_pipeline_ms = embed_ms + lookup_ms
         total_latency = (base_pipeline_ms + llm_res["latency_ms"]) if virtual_clock else round((time.time() - start_time) * 1000.0, 2)
 
-        # 6. Two-Sided PII Check on Generated Answer before Cache Write
+        # 6. Two-Sided PII Check on Generated Answer before Cache Write (only when cache is enabled)
         answer_has_pii, ans_pii_reason = contains_pii(answer)
-        if source != "fallback" and not answer_has_pii and not self.cache.read_only:
+        if (
+            self.enable_cache
+            and self.cache is not None
+            and source != "fallback"
+            and not answer_has_pii
+            and not self.cache.read_only
+        ):
             # Safely write to cache
             self.cache.add(
                 vector=query_vec,
